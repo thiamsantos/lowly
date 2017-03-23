@@ -1,7 +1,7 @@
 const fs = require('fs')
+const path = require('path')
 const filesize = require('filesize')
 const imageSize = require('image-size')
-const path = require('path')
 const resizeImage = require('resize-img')
 
 function getOutputFileName(input) {
@@ -23,4 +23,4 @@ function lowly(input) {
     })
 }
 
-lowly('fixture.jpeg')
+module.exports = lowly
