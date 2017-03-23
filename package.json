@@ -1,0 +1,16 @@
+{
+  "name": "lowly",
+  "version": "1.0.0",
+  "description": "Build low quality images",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/**/*.js"
+  },
+  "author": "Thiago Santos",
+  "license": "MIT",
+  "dependencies": {
+    "filesize": "^3.5.6",
+    "image-size": "^0.5.1",
+    "resize-img": "^1.1.2"
+  }
+}
