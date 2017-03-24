@@ -4,19 +4,24 @@
   "description": "Build low quality images",
   "main": "index.js",
   "scripts": {
-    "test": "xo && tape test/index.js",
+    "test": "xo && ava -v",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "author": "Thiago Santos",
+  "bin": {
+    "lowly": "./bin.js"
+  },
   "license": "MIT",
   "dependencies": {
     "filesize": "^3.5.6",
     "image-size": "^0.5.1",
-    "resize-img": "^1.1.2"
+    "resize-img": "^1.1.2",
+    "round-to": "^2.0.0"
   },
   "devDependencies": {
+    "ava": "^0.18.2",
     "nyc": "^10.1.2",
-    "tape": "^4.6.3",
+    "pify": "^2.3.0",
     "xo": "^0.18.0"
   },
   "xo": {

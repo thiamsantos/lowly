@@ -1,17 +1,17 @@
-const fs = require('fs')
-const path = require('path')
-const test = require('tape')
-const lowly = require('../')
+import fs from 'fs'
+import path from 'path'
+import test from 'ava'
+import pify from 'pify'
+import lowly from '../'
 
-test('lowly', t => {
-  const initialSize = fs.readFileSync(
-    path.resolve(__dirname, 'fixture.jpeg')
-  ).length
-  lowly(path.resolve(__dirname, 'fixture.jpeg'))
-  const finalSize = fs.readFileSync(
-    path.resolve(__dirname, 'fixture-lowly.jpeg')
-  ).length
+const readFile = pify(fs.readFile)
 
-  t.ok(initialSize > finalSize, 'the final size should be much lower')
-  t.end()
+test('lowly', async t => {
+  const image = await readFile(path.resolve(__dirname, 'fixture.jpeg'))
+  const lowlyImage = await lowly(image)
+
+  const initialSize = image.length
+  const finalSize = lowlyImage.length
+
+  t.true(initialSize > finalSize, 'the final size should be much lower')
 })
