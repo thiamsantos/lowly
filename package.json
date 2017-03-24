@@ -32,5 +32,23 @@
   "xo": {
     "space": true,
     "semicolon": false
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thiamsantos/lowly.git"
+  },
+  "keywords": [
+    "resize",
+    "image",
+    "low",
+    "quality",
+    "small"
+  ],
+  "bugs": {
+    "url": "https://github.com/thiamsantos/lowly/issues"
+  },
+  "homepage": "https://github.com/thiamsantos/lowly#readme"
 }
