@@ -2,26 +2,29 @@
   "name": "lowly",
   "version": "1.0.0",
   "description": "Build low quality images",
-  "main": "index.js",
+  "main": "lib/lowly.js",
   "scripts": {
     "test": "xo && ava -v",
+    "precommit": "npm test",
+    "prepush": "npm test",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "author": "Thiago Santos",
   "bin": {
-    "lowly": "./bin.js"
+    "lowly": "./bin/lowly.js"
   },
   "license": "MIT",
   "dependencies": {
     "filesize": "^3.5.6",
     "image-size": "^0.5.1",
-    "resize-img": "^1.1.2",
-    "round-to": "^2.0.0"
+    "meow": "^3.7.0",
+    "pify": "^2.3.0",
+    "resize-img": "^1.1.2"
   },
   "devDependencies": {
     "ava": "^0.18.2",
+    "husky": "^0.13.3",
     "nyc": "^10.1.2",
-    "pify": "^2.3.0",
     "xo": "^0.18.0"
   },
   "xo": {
