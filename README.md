@@ -39,14 +39,16 @@ lowly(image)
 
 ### CLI
 
-    $ lowly --help
+```
+$ lowly --help
 
-      Usage
-          $ lowly <input>
+  Usage
+      $ lowly <input>
 
-      Examples
-        $ lowly image.jpg
-        $ lowly images/**/* image.jpg
+  Examples
+    $ lowly image.jpg
+    $ lowly images/**/* image.jpg
+```
 
 ## API
 
