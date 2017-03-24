@@ -7,11 +7,13 @@
 
 > Build low quality images.
 
+Create low quality images to improve the load time of your page, and fetch the real images asynchronously. You can do that with the help of lowly and [progressively](https://github.com/thinker3197/progressively).
+
 ## Table of Contents
 
 -   [Install](#install)
 -   [Usage](#usage)
-    -   [CLI](#cli)
+  - [CLI](#cli)
 -   [API](#api)
 -   [License](#license)
 
