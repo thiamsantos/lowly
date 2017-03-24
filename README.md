@@ -10,6 +10,7 @@
 ## Table of Contents
 - [Install](#install)
 - [Usage](#usage)
+  - [CLI](#cli)
 - [API](#api)
 - [License](#license)
 
@@ -17,7 +18,34 @@
 This project uses [node](http://nodejs.org) and [npm](https://npmjs.com). Go check them out if you don't have them locally installed.
 
 ```sh
-$ npm install -g lowly
+$ npm install lowly
+```
+
+## Usage
+
+```javascript
+const fs = require('fs')
+const lowly = require('lowly')
+
+const image = fs.readFileSync('image.jpg')
+
+lowly(image)
+  .then(buff => {
+    fs.writeFileSync('image-lowly.jpg', buff)
+  })
+```
+
+### CLI
+
+```
+$ lowly --help
+
+  Usage
+      $ lowly <input>
+
+  Examples
+    $ lowly image.jpg
+    $ lowly images/**/* image.jpg
 ```
 
 ## License
