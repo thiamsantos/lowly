@@ -5,8 +5,9 @@
   "main": "lib/lowly.js",
   "scripts": {
     "test": "xo && ava -v",
-    "precommit": "npm test",
+    "precommit": "npm test && npm docs",
     "prepush": "npm test",
+    "docs": "documentation readme lib/lowly.js --section=API -q --shallow",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "author": "Thiago Santos",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "ava": "^0.18.2",
+    "documentation": "^4.0.0-beta.18",
     "husky": "^0.13.3",
     "nyc": "^10.1.2",
     "xo": "^0.18.0"
