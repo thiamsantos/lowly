@@ -26,12 +26,12 @@ const cli = meow(`
 
 const input = cli.input
 
-const getOutputFileName = (input) => {
+const getOutputFileName = input => {
   const inputPath = path.parse(input)
   return path.resolve(inputPath.dir, inputPath.name + '-lowly' + inputPath.ext)
 }
 
-const createLowlyImage = (fpath) => {
+const createLowlyImage = fpath => {
   readFile(fpath)
     .then(lowly)
     .then(buff => {
@@ -49,15 +49,20 @@ const createLowlyImage = (fpath) => {
 input.forEach(ip => {
   const isDir = !path.parse(ip).ext
 
-  if(isDir) {
+  if (isDir) {
     const basePath = path.resolve(ip)
 
     fs.readdir(path.resolve(ip), (err, files) => {
-      files.forEach(file => {
-        const fresolve = path.parse(path.resolve(file));
+      if (err) {
+        console.log(err)
+      }
 
-        if(fresolve.ext === '.png' || fresolve.ext === 'jpg' || fresolve.ext === '.jpeg')
-          createLowlyImage(basePath + '/' + file);
+      files.forEach(file => {
+        const fresolve = path.parse(path.resolve(file))
+
+        if (fresolve.ext === '.png' || fresolve.ext === 'jpg' || fresolve.ext === '.jpeg') {
+          createLowlyImage(basePath + '/' + file)
+        }
       })
     })
   } else {
