@@ -19,6 +19,7 @@
     "filesize": "^3.5.6",
     "image-size": "^0.5.1",
     "meow": "^3.7.0",
+    "mmmagic": "^0.4.5",
     "pify": "^2.3.0",
     "resize-img": "^1.1.2"
   },

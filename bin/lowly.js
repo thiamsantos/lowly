@@ -6,6 +6,10 @@ const filesize = require('filesize')
 const meow = require('meow')
 const pify = require('pify')
 const lowly = require('../lib/lowly')
+const mmm = require('mmmagic')
+
+const Magic = mmm.Magic
+const magic = new Magic(mmm.MAGIC_MIME_TYPE)
 
 const readFile = pify(fs.readFile)
 const writeFile = pify(fs.writeFile)
@@ -60,12 +64,30 @@ input.forEach(ip => {
       files.forEach(file => {
         const fresolve = path.parse(path.resolve(file))
 
-        if (fresolve.ext === '.png' || fresolve.ext === 'jpg' || fresolve.ext === '.jpeg') {
-          createLowlyImage(basePath + '/' + file)
-        }
+        readFile(basePath + '/' + file)
+          .then(buff => {
+            magic.detect(buff, (err, res) => {
+              if (err) throw err
+
+              if(res.indexOf('image') !== -1)
+                createLowlyImage(basePath + '/' + file)
+              else
+                console.error('Ignored file : ' + file + ' (not an image)')
+            })
+          })
       })
     })
   } else {
-    createLowlyImage(ip)
+      readFile(ip)
+        .then(buff => {
+          magic.detect(buff, (err, res) => {
+            if (err) throw err
+
+            if(res.indexOf('image') !== -1)
+              createLowlyImage(ip)
+            else
+              console.error('Ignored file : ' + ip + ' (not an image)')
+          })
+        })
   }
 })
