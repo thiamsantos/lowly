@@ -35,11 +35,24 @@ const getOutputFileName = input => {
   return path.resolve(inputPath.dir, inputPath.name + '-lowly' + inputPath.ext)
 }
 
-const createLowlyImage = fpath => {
-  readFile(fpath)
+const checkType = (buff, file) => {
+  return new Promise((resolve, reject) => {
+    magic.detect(buff, (err, res) => {
+      if (res.indexOf('image') >= 0) {
+        resolve(buff)
+      } else {
+        reject(err || 'Ignored file : ' + file + ' (not an image)')
+      }
+    })
+  })
+}
+
+input.forEach(file => {
+  readFile(path.resolve(file))
+    .then(buff => checkType(buff, file))
     .then(lowly)
     .then(buff => {
-      const outputFile = getOutputFileName(fpath)
+      const outputFile = getOutputFileName(file)
       console.log(
         'Finished ' + path.parse(outputFile).base +
         ' with ' + filesize(buff.length)
@@ -48,46 +61,4 @@ const createLowlyImage = fpath => {
     }).catch(err => {
       console.error(err)
     })
-}
-
-input.forEach(ip => {
-  const isDir = !path.parse(ip).ext
-
-  if (isDir) {
-    const basePath = path.resolve(ip)
-
-    fs.readdir(path.resolve(ip), (err, files) => {
-      if (err) {
-        console.log(err)
-      }
-
-      files.forEach(file => {
-        readFile(basePath + '/' + file)
-          .then(buff => {
-            magic.detect(buff, (err, res) => {
-              if (err) {
-                throw err
-              } else if (res.indexOf('image') >= 0) {
-                createLowlyImage(basePath + '/' + file)
-              } else {
-                console.error('Ignored file : ' + file + ' (not an image)')
-              }
-            })
-          })
-      })
-    })
-  } else {
-    readFile(ip)
-      .then(buff => {
-        magic.detect(buff, (err, res) => {
-          if (err) {
-            throw err
-          } else if (res.indexOf('image') >= 0) {
-            createLowlyImage(ip)
-          } else {
-            console.error('Ignored file : ' + ip + ' (not an image)')
-          }
-        })
-      })
-  }
 })
